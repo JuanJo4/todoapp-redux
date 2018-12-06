@@ -2,9 +2,9 @@
 // import { mount } from 'enzyme';
 // import { enzymeFind } from 'styled-components/test-utils';
 
-// import { HomePage } from '../index';
+// import H1Link from '../index';
 
-describe('<HomePage />', () => {
+describe('<H1Link />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
