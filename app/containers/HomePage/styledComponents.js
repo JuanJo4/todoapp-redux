@@ -1,3 +1,3 @@
 import styled from 'styled-components';
 
-export const TaskList = styled.div``;
+export const TaskList = styled.form``;

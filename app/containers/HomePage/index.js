@@ -10,19 +10,29 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+//  Fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+//  Redux
 import injectReducer from 'utils/injectReducer';
 import makeSelectHomePage from './selectors';
 import reducer from './reducer';
-
+//  Components
 import H1Link from '../../components/H1Link';
 import TaskInput from '../../components/TaskInput';
 import { TaskList } from './styledComponents';
 
+//  Adding icon to librery (Fontawesome)
+library.add(faAngleDown, faCircle, faCheckCircle);
+
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   render() {
-    console.log('Props', this.props);
+    const {
+      homePage: { tasks },
+    } = this.props;
+
     return (
       <>
         <Helmet>
@@ -35,6 +45,10 @@ export class HomePage extends React.PureComponent {
         <H1Link title="todos" url="/" />
         <TaskList>
           <TaskInput />
+
+          {tasks.map(t => (
+            <TaskInput key={t.id} status={t.status} />
+          ))}
         </TaskList>
       </>
     );
@@ -42,7 +56,8 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  homePage: PropTypes.object.isRequired,
+  // dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

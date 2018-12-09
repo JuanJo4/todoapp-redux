@@ -8,7 +8,33 @@ import { fromJS } from 'immutable';
 import { DEFAULT_ACTION } from './constants';
 
 export const initialState = fromJS({
-  tasks: [],
+  tasks: [
+    {
+      id: 123,
+      status: 'pending',
+      task: 'Hello world',
+    },
+    {
+      id: 1234,
+      status: 'done',
+      task: 'Hello world done',
+    },
+    {
+      id: 1235,
+      status: 'done',
+      task: 'Hello world done 2',
+    },
+    {
+      id: 1236,
+      status: 'pending',
+      task: 'Hello world pending',
+    },
+    {
+      id: 1237,
+      status: 'pending',
+      task: 'Hello world pending 2',
+    },
+  ],
 });
 
 function homePageReducer(state = initialState, action) {
