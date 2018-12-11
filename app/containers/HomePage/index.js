@@ -42,12 +42,12 @@ export class HomePage extends React.PureComponent {
             content="Todo App. Learning ReactJs, Redux and React-Boilerplate"
           />
         </Helmet>
-        <H1Link title="todos" url="/" />
+        <H1Link title="todos" url="/" className="main-header" />
         <TaskList>
-          <TaskInput />
+          <TaskInput placeholder="What's need to be done?" />
 
           {tasks.map(t => (
-            <TaskInput key={t.id} status={t.status} />
+            <TaskInput key={t.id} status={t.status} task={t.task} />
           ))}
         </TaskList>
       </>
