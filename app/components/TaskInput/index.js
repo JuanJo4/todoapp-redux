@@ -7,15 +7,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import TaskIcon from '../TaskIcon';
 
 const TaskWrapper = styled.div`
   display: flex;
-`;
-const Button = styled.button`
-  cursor: pointer;
-  width: 6%;
-  outline: none;
 `;
 const Input = styled.input`
   outline: none;
@@ -23,7 +18,7 @@ const Input = styled.input`
 `;
 
 function TaskInput(props) {
-  const { status, placeholder, task } = props;
+  const { status, placeholder, task, onTaskIconClick } = props;
   const icon = {
     default: ['fas', 'angle-down'],
     pending: ['far', 'circle'],
@@ -32,9 +27,7 @@ function TaskInput(props) {
 
   return (
     <TaskWrapper className={`task ${status}`}>
-      <Button type="button">
-        <FontAwesomeIcon icon={icon[status]} />
-      </Button>
+      <TaskIcon icon={icon[status]} onTaskIconClick={onTaskIconClick} />
       <Input type="text" placeholder={placeholder} defaultValue={task} />
     </TaskWrapper>
   );
@@ -44,6 +37,7 @@ TaskInput.propTypes = {
   status: PropTypes.string,
   placeholder: PropTypes.string,
   task: PropTypes.string,
+  onTaskIconClick: PropTypes.func,
 };
 
 TaskInput.defaultProps = {
