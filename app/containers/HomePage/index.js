@@ -18,7 +18,7 @@ import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import injectReducer from 'utils/injectReducer';
 import makeSelectHomePage from './selectors';
 import reducer from './reducer';
-import { taskIconClick, taskIconClickDefault } from './actions';
+import { taskIconClick, taskIconClickDefault, taskChange } from './actions';
 //  Components
 import H1Link from '../../components/H1Link';
 import TaskInput from '../../components/TaskInput';
@@ -34,6 +34,7 @@ export class HomePage extends React.PureComponent {
       homePage: { tasks },
       onTaskIconClick,
       onTaskIconClickDefault,
+      onTaskChange,
     } = this.props;
 
     return (
@@ -58,6 +59,7 @@ export class HomePage extends React.PureComponent {
               status={t.status}
               task={t.task}
               onTaskIconClick={() => onTaskIconClick(t.id)}
+              onTaskChange={evt => onTaskChange(evt, t.id)}
             />
           ))}
         </TaskList>
@@ -70,6 +72,7 @@ HomePage.propTypes = {
   homePage: PropTypes.object.isRequired,
   onTaskIconClick: PropTypes.func,
   onTaskIconClickDefault: PropTypes.func,
+  onTaskChange: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -80,6 +83,7 @@ function mapDispatchToProps(dispatch) {
   return {
     onTaskIconClick: tid => dispatch(taskIconClick(tid)),
     onTaskIconClickDefault: () => dispatch(taskIconClickDefault()),
+    onTaskChange: (evt, tid) => dispatch(taskChange(evt.target.value, tid)),
   };
 }
 

@@ -9,6 +9,7 @@ import {
   DEFAULT_ACTION,
   TASK_ICON_CLICK,
   TASK_ICON_CLICK_DEFAULT,
+  TASK_CHANGE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -60,6 +61,7 @@ function homePageReducer(state = initialState, action) {
     }
     case TASK_ICON_CLICK_DEFAULT: {
       const tasks = state.get('tasks');
+
       const nTasksDone = tasks.reduce(
         (acc, item) => acc + (item.get('status') === 'done'),
         0,
@@ -73,6 +75,17 @@ function homePageReducer(state = initialState, action) {
             isAllTasksDone
               ? item.set('status', 'pending')
               : item.set('status', 'done'),
+        ),
+      );
+    }
+    case TASK_CHANGE: {
+      const tasks = state.get('tasks');
+
+      return state.set(
+        'tasks',
+        tasks.update(
+          tasks.findIndex(item => item.get('id') === action.tid),
+          item => item.set('task', action.value),
         ),
       );
     }
