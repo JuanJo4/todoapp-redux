@@ -50,6 +50,12 @@ const GlobalStyle = createGlobalStyle`
 
         button {
           font-size: 26px;
+          color: #757575;
+          transition: color 0.5s ease;
+
+          &:hover {
+            color: #e07578;
+          }
         }
 
         input {
@@ -57,6 +63,18 @@ const GlobalStyle = createGlobalStyle`
 
           ::placeholder {
             font-style: italic;
+          }
+        }
+
+        &.done {
+          input {
+            text-decoration: line-through;
+            color: #757575;
+
+            :focus {
+              text-decoration: none;
+              color: #000;
+            }
           }
         }
       }
