@@ -29,7 +29,7 @@ import {
 //  Components
 import H1Link from '../../components/H1Link';
 import TaskInput from '../../components/TaskInput';
-import { TaskList } from './styledComponents';
+import { TaskList, FiltersWrapper } from './styledComponents';
 
 //  Adding icon to librery (Fontawesome)
 library.add(faAngleDown, faTimes, faCircle, faCheckCircle);
@@ -38,7 +38,7 @@ library.add(faAngleDown, faTimes, faCircle, faCheckCircle);
 export class HomePage extends React.PureComponent {
   render() {
     const {
-      homePage: { newTask, tasks },
+      homePage: { newTask, tasks, itemsLeft, itemsCompleted },
       onTaskIconClick,
       onTaskIconClickDefault,
       onTaskChange,
@@ -77,6 +77,19 @@ export class HomePage extends React.PureComponent {
               onTaskRemove={() => onTaskRemove(t.id)}
             />
           ))}
+
+          <FiltersWrapper>
+            <div className="items-left">{`${itemsLeft} items left`}</div>
+            <div className="filters">
+              <button type="button">All</button>
+              <button type="button">Active</button>
+              <button type="button">Completed</button>
+            </div>
+            <button
+              type="button"
+              className="clear-completed"
+            >{`Clear completed (${itemsCompleted})`}</button>
+          </FiltersWrapper>
         </TaskList>
       </>
     );

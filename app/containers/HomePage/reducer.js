@@ -17,6 +17,8 @@ import {
 
 export const initialState = fromJS({
   newTask: '',
+  itemsLeft: 3,
+  itemsCompleted: 2,
   tasks: [
     {
       id: 123,
@@ -46,40 +48,46 @@ export const initialState = fromJS({
   ],
 });
 
+//  Helper
+const getItemsCompleted = tasks =>
+  tasks.reduce((acc, item) => acc + (item.get('status') === 'done'), 0);
+
 function homePageReducer(state = initialState, action) {
   switch (action.type) {
     case TASK_ICON_CLICK: {
       const tasks = state.get('tasks');
-      return state.set(
-        'tasks',
-        tasks.update(
-          tasks.findIndex(item => item.get('id') === action.tid),
-          item =>
-            item.set(
-              'status',
-              item.get('status') === 'pending' ? 'done' : 'pending',
-            ),
-        ),
+      const tasksUpdated = tasks.update(
+        tasks.findIndex(item => item.get('id') === action.tid),
+        item =>
+          item.set(
+            'status',
+            item.get('status') === 'pending' ? 'done' : 'pending',
+          ),
       );
+      const itemsCompleted = getItemsCompleted(tasksUpdated);
+      const itemsLeft = tasksUpdated.count() - itemsCompleted;
+
+      return state
+        .set('itemsLeft', itemsLeft)
+        .set('itemsCompleted', itemsCompleted)
+        .set('tasks', tasksUpdated);
     }
     case TASK_ICON_CLICK_DEFAULT: {
       const tasks = state.get('tasks');
+      const isAllTasksDone = getItemsCompleted(tasks) === tasks.count();
 
-      const nTasksDone = tasks.reduce(
-        (acc, item) => acc + (item.get('status') === 'done'),
-        0,
-      );
-      const isAllTasksDone = nTasksDone === tasks.count();
-
-      return state.set(
-        'tasks',
-        tasks.map(
-          item =>
-            isAllTasksDone
-              ? item.set('status', 'pending')
-              : item.set('status', 'done'),
-        ),
-      );
+      return state
+        .set('itemsLeft', isAllTasksDone ? tasks.count() : 0)
+        .set('itemsCompleted', isAllTasksDone ? 0 : tasks.count())
+        .set(
+          'tasks',
+          tasks.map(
+            item =>
+              isAllTasksDone
+                ? item.set('status', 'pending')
+                : item.set('status', 'done'),
+          ),
+        );
     }
     case TASK_CHANGE: {
       const tasks = state.get('tasks');
@@ -110,15 +118,27 @@ function homePageReducer(state = initialState, action) {
         }),
       );
 
-      return state.set('newTask', '').set('tasks', tasks);
+      const itemsCompleted = getItemsCompleted(tasks);
+      const itemsLeft = tasks.count() - itemsCompleted;
+
+      return state
+        .set('newTask', '')
+        .set('itemsLeft', itemsLeft)
+        .set('itemsCompleted', itemsCompleted)
+        .set('tasks', tasks);
     }
     case TASK_REMOVE: {
       const tasks = state.get('tasks');
-
-      return state.set(
-        'tasks',
-        tasks.delete(tasks.findIndex(item => item.get('id') === action.tid)),
+      const tasksUpdated = tasks.delete(
+        tasks.findIndex(item => item.get('id') === action.tid),
       );
+      const itemsCompleted = getItemsCompleted(tasksUpdated);
+      const itemsLeft = tasksUpdated.count() - itemsCompleted;
+
+      return state
+        .set('itemsLeft', itemsLeft)
+        .set('itemsCompleted', itemsCompleted)
+        .set('tasks', tasksUpdated);
     }
     case DEFAULT_ACTION:
       return state;
