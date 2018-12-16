@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 //  Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 //  Redux
 import injectReducer from 'utils/injectReducer';
@@ -31,7 +31,7 @@ import TaskInput from '../../components/TaskInput';
 import { TaskList } from './styledComponents';
 
 //  Adding icon to librery (Fontawesome)
-library.add(faAngleDown, faCircle, faCheckCircle);
+library.add(faAngleDown, faTimes, faCircle, faCheckCircle);
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {

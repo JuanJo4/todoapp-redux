@@ -43,6 +43,7 @@ function TaskInput(props) {
         onChange={onTaskChange}
         onKeyDown={onTaskSubmit}
       />
+      <TaskIcon className="delete" icon={['fas', 'times']} />
     </TaskWrapper>
   );
 }

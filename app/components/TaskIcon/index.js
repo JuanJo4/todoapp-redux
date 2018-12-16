@@ -16,9 +16,9 @@ const Button = styled.button`
 `;
 
 function TaskIcon(props) {
-  const { icon, onTaskIconClick } = props;
+  const { icon, onTaskIconClick, className } = props;
   return (
-    <Button type="button" onClick={onTaskIconClick}>
+    <Button type="button" onClick={onTaskIconClick} className={className}>
       <FontAwesomeIcon icon={icon} />
     </Button>
   );
@@ -27,6 +27,7 @@ function TaskIcon(props) {
 TaskIcon.propTypes = {
   icon: PropTypes.array.isRequired,
   onTaskIconClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default TaskIcon;

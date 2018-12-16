@@ -46,6 +46,7 @@ const GlobalStyle = createGlobalStyle`
       `}
 
       .task {
+        position: relative;
         border-bottom: 2px solid #f5f5f5;
 
         button {
@@ -60,6 +61,15 @@ const GlobalStyle = createGlobalStyle`
 
         input {
           height: 60px;
+          padding: 0 10px;
+          
+          :focus {
+            outline: 1px solid;
+
+            &+.delete {
+              display: none;
+            }
+          }
 
           ::placeholder {
             font-style: italic;
@@ -77,6 +87,25 @@ const GlobalStyle = createGlobalStyle`
             }
           }
         }
+
+        .delete {
+          display: none;
+        }
+
+        &.default {
+          .delete {
+            display: none !important;
+          }
+        }
+
+        &:hover {
+            &>.delete {
+              display: block;
+              position: absolute;
+              right: 0px;
+              align-self: center;
+            }  
+          }
       }
     }
   }
