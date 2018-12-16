@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Button = styled.button`
   cursor: pointer;
-  width: 6%;
+  width: 45px;
   outline: none;
 `;
 

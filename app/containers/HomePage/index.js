@@ -85,10 +85,10 @@ export class HomePage extends React.PureComponent {
               <button type="button">Active</button>
               <button type="button">Completed</button>
             </div>
-            <button
-              type="button"
-              className="clear-completed"
-            >{`Clear completed (${itemsCompleted})`}</button>
+
+            <div className="clear-completed">
+              <button type="button">{`Clear completed (${itemsCompleted})`}</button>
+            </div>
           </FiltersWrapper>
         </TaskList>
       </>

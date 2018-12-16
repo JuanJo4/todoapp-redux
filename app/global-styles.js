@@ -48,6 +48,7 @@ const GlobalStyle = createGlobalStyle`
       .task {
         position: relative;
         border-bottom: 2px solid #f5f5f5;
+        padding: 0 5px;
 
         button {
           font-size: 26px;
