@@ -104,6 +104,11 @@ const GlobalStyle = createGlobalStyle`
               position: absolute;
               right: 0px;
               align-self: center;
+              color: #e07578;
+
+              &:hover {
+                color: #e00000;
+              }
             }  
           }
       }
