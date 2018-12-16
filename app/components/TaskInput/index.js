@@ -18,7 +18,14 @@ const Input = styled.input`
 `;
 
 function TaskInput(props) {
-  const { status, placeholder, task, onTaskIconClick, onTaskChange } = props;
+  const {
+    status,
+    placeholder,
+    task,
+    onTaskIconClick,
+    onTaskChange,
+    onTaskSubmit,
+  } = props;
   const icon = {
     default: ['fas', 'angle-down'],
     pending: ['far', 'circle'],
@@ -30,9 +37,11 @@ function TaskInput(props) {
       <TaskIcon icon={icon[status]} onTaskIconClick={onTaskIconClick} />
       <Input
         type="text"
+        name="task"
         placeholder={placeholder}
-        defaultValue={task}
+        value={task}
         onChange={onTaskChange}
+        onKeyDown={onTaskSubmit}
       />
     </TaskWrapper>
   );
@@ -44,6 +53,7 @@ TaskInput.propTypes = {
   task: PropTypes.string,
   onTaskIconClick: PropTypes.func,
   onTaskChange: PropTypes.func,
+  onTaskSubmit: PropTypes.func,
 };
 
 TaskInput.defaultProps = {

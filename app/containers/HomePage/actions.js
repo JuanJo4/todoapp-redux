@@ -9,6 +9,8 @@ import {
   TASK_ICON_CLICK,
   TASK_ICON_CLICK_DEFAULT,
   TASK_CHANGE,
+  NEW_TASK_CHANGE,
+  TASK_SUBMIT,
 } from './constants';
 
 export function defaultAction() {
@@ -35,5 +37,19 @@ export function taskChange(value, tid) {
     type: TASK_CHANGE,
     value,
     tid,
+  };
+}
+
+export function newTaskChange(value) {
+  return {
+    type: NEW_TASK_CHANGE,
+    value,
+  };
+}
+
+export function taskSubmit(evt) {
+  return {
+    type: TASK_SUBMIT,
+    evt,
   };
 }

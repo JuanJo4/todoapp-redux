@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
-    form {
+    .task-list {
       width: 90%;
       margin-bottom: 50px;
 

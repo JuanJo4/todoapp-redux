@@ -18,7 +18,13 @@ import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import injectReducer from 'utils/injectReducer';
 import makeSelectHomePage from './selectors';
 import reducer from './reducer';
-import { taskIconClick, taskIconClickDefault, taskChange } from './actions';
+import {
+  taskIconClick,
+  taskIconClickDefault,
+  taskChange,
+  newTaskChange,
+  taskSubmit,
+} from './actions';
 //  Components
 import H1Link from '../../components/H1Link';
 import TaskInput from '../../components/TaskInput';
@@ -31,10 +37,12 @@ library.add(faAngleDown, faCircle, faCheckCircle);
 export class HomePage extends React.PureComponent {
   render() {
     const {
-      homePage: { tasks },
+      homePage: { newTask, tasks },
       onTaskIconClick,
       onTaskIconClickDefault,
       onTaskChange,
+      onNewTaskChange,
+      onTaskSubmit,
     } = this.props;
 
     return (
@@ -47,11 +55,15 @@ export class HomePage extends React.PureComponent {
           />
         </Helmet>
         <H1Link title="todos" url="/" className="main-header" />
-        <TaskList>
-          <TaskInput
-            placeholder="What's need to be done?"
-            onTaskIconClick={onTaskIconClickDefault}
-          />
+        <TaskList className="task-list">
+          <form onSubmit={onTaskSubmit}>
+            <TaskInput
+              placeholder="What's need to be done?"
+              task={newTask}
+              onTaskIconClick={onTaskIconClickDefault}
+              onTaskChange={onNewTaskChange}
+            />
+          </form>
 
           {tasks.map(t => (
             <TaskInput
@@ -73,6 +85,8 @@ HomePage.propTypes = {
   onTaskIconClick: PropTypes.func,
   onTaskIconClickDefault: PropTypes.func,
   onTaskChange: PropTypes.func,
+  onNewTaskChange: PropTypes.func,
+  onTaskSubmit: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -84,6 +98,8 @@ function mapDispatchToProps(dispatch) {
     onTaskIconClick: tid => dispatch(taskIconClick(tid)),
     onTaskIconClickDefault: () => dispatch(taskIconClickDefault()),
     onTaskChange: (evt, tid) => dispatch(taskChange(evt.target.value, tid)),
+    onNewTaskChange: evt => dispatch(newTaskChange(evt.target.value)),
+    onTaskSubmit: evt => dispatch(taskSubmit(evt)),
   };
 }
 

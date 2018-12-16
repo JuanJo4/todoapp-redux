@@ -10,9 +10,12 @@ import {
   TASK_ICON_CLICK,
   TASK_ICON_CLICK_DEFAULT,
   TASK_CHANGE,
+  NEW_TASK_CHANGE,
+  TASK_SUBMIT,
 } from './constants';
 
 export const initialState = fromJS({
+  newTask: '',
   tasks: [
     {
       id: 123,
@@ -46,7 +49,6 @@ function homePageReducer(state = initialState, action) {
   switch (action.type) {
     case TASK_ICON_CLICK: {
       const tasks = state.get('tasks');
-
       return state.set(
         'tasks',
         tasks.update(
@@ -88,6 +90,26 @@ function homePageReducer(state = initialState, action) {
           item => item.set('task', action.value),
         ),
       );
+    }
+    case NEW_TASK_CHANGE: {
+      return state.set('newTask', action.value);
+    }
+    case TASK_SUBMIT: {
+      const event = action.evt;
+      const task = event.target.elements.task.value;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const tasks = state.get('tasks').push(
+        fromJS({
+          id: Date.now(),
+          status: 'pending',
+          task,
+        }),
+      );
+
+      return state.set('newTask', '').set('tasks', tasks);
     }
     case DEFAULT_ACTION:
       return state;
