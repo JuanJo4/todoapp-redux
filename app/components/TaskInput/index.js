@@ -25,6 +25,7 @@ function TaskInput(props) {
     onTaskIconClick,
     onTaskChange,
     onTaskSubmit,
+    onTaskRemove,
   } = props;
   const icon = {
     default: ['fas', 'angle-down'],
@@ -43,7 +44,11 @@ function TaskInput(props) {
         onChange={onTaskChange}
         onKeyDown={onTaskSubmit}
       />
-      <TaskIcon className="delete" icon={['fas', 'times']} />
+      <TaskIcon
+        className="delete"
+        icon={['fas', 'times']}
+        onTaskIconClick={onTaskRemove}
+      />
     </TaskWrapper>
   );
 }
@@ -55,6 +60,7 @@ TaskInput.propTypes = {
   onTaskIconClick: PropTypes.func,
   onTaskChange: PropTypes.func,
   onTaskSubmit: PropTypes.func,
+  onTaskRemove: PropTypes.func,
 };
 
 TaskInput.defaultProps = {

@@ -24,6 +24,7 @@ import {
   taskChange,
   newTaskChange,
   taskSubmit,
+  taskRemove,
 } from './actions';
 //  Components
 import H1Link from '../../components/H1Link';
@@ -43,6 +44,7 @@ export class HomePage extends React.PureComponent {
       onTaskChange,
       onNewTaskChange,
       onTaskSubmit,
+      onTaskRemove,
     } = this.props;
 
     return (
@@ -72,6 +74,7 @@ export class HomePage extends React.PureComponent {
               task={t.task}
               onTaskIconClick={() => onTaskIconClick(t.id)}
               onTaskChange={evt => onTaskChange(evt, t.id)}
+              onTaskRemove={() => onTaskRemove(t.id)}
             />
           ))}
         </TaskList>
@@ -87,6 +90,7 @@ HomePage.propTypes = {
   onTaskChange: PropTypes.func,
   onNewTaskChange: PropTypes.func,
   onTaskSubmit: PropTypes.func,
+  onTaskRemove: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -100,6 +104,7 @@ function mapDispatchToProps(dispatch) {
     onTaskChange: (evt, tid) => dispatch(taskChange(evt.target.value, tid)),
     onNewTaskChange: evt => dispatch(newTaskChange(evt.target.value)),
     onTaskSubmit: evt => dispatch(taskSubmit(evt)),
+    onTaskRemove: tid => dispatch(taskRemove(tid)),
   };
 }
 

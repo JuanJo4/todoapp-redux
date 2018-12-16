@@ -12,6 +12,7 @@ import {
   TASK_CHANGE,
   NEW_TASK_CHANGE,
   TASK_SUBMIT,
+  TASK_REMOVE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -110,6 +111,14 @@ function homePageReducer(state = initialState, action) {
       );
 
       return state.set('newTask', '').set('tasks', tasks);
+    }
+    case TASK_REMOVE: {
+      const tasks = state.get('tasks');
+
+      return state.set(
+        'tasks',
+        tasks.delete(tasks.findIndex(item => item.get('id') === action.tid)),
+      );
     }
     case DEFAULT_ACTION:
       return state;

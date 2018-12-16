@@ -11,6 +11,7 @@ import {
   TASK_CHANGE,
   NEW_TASK_CHANGE,
   TASK_SUBMIT,
+  TASK_REMOVE,
 } from './constants';
 
 export function defaultAction() {
@@ -51,5 +52,12 @@ export function taskSubmit(evt) {
   return {
     type: TASK_SUBMIT,
     evt,
+  };
+}
+
+export function taskRemove(tid) {
+  return {
+    type: TASK_REMOVE,
+    tid,
   };
 }
