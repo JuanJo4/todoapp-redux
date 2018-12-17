@@ -35,7 +35,6 @@ const GlobalStyle = createGlobalStyle`
 
     .task-list {
       width: 90%;
-      margin-bottom: 50px;
 
       ${breakpoint('tablet')`
         width: 70%;

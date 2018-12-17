@@ -32,7 +32,7 @@ import {
 import H1Link from '../../components/H1Link';
 import TaskInput from '../../components/TaskInput';
 import ButtonAction from '../../components/ButtonAction';
-import { TaskList, FiltersWrapper } from './styledComponents';
+import { TaskList, FiltersWrapper, BottomBorder } from './styledComponents';
 
 //  Adding icon to librery (Fontawesome)
 library.add(faAngleDown, faTimes, faCircle, faCheckCircle);
@@ -122,6 +122,8 @@ export class HomePage extends React.PureComponent {
             </div>
           </FiltersWrapper>
         </TaskList>
+        <BottomBorder className="before-last" />
+        <BottomBorder className="last" />
       </>
     );
   }
