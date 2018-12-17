@@ -84,7 +84,9 @@ function homePageReducer(state = initialState, action) {
       const event = action.evt;
       const task = event.target.elements.task.value;
 
+      // Esto no lo entendí
       event.preventDefault();
+      // Esto no lo entendí
       event.stopPropagation();
 
       const tasks = state.get('tasks').push(
