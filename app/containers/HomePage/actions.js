@@ -13,6 +13,7 @@ import {
   TASK_SUBMIT,
   TASK_REMOVE,
   FILTER_TASKS,
+  CLEAR_COMPLETED,
 } from './constants';
 
 export function defaultAction() {
@@ -67,5 +68,11 @@ export function filterTasks(filter) {
   return {
     type: FILTER_TASKS,
     filter,
+  };
+}
+
+export function clearCompleted() {
+  return {
+    type: CLEAR_COMPLETED,
   };
 }

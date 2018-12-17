@@ -14,6 +14,7 @@ import {
   TASK_SUBMIT,
   TASK_REMOVE,
   FILTER_TASKS,
+  CLEAR_COMPLETED,
 } from './constants';
 
 export const initialState = fromJS({
@@ -21,33 +22,7 @@ export const initialState = fromJS({
   itemsLeft: 3,
   itemsCompleted: 2,
   currentFilter: 'all',
-  tasks: [
-    {
-      id: 123,
-      status: 'pending',
-      task: 'Hello world',
-    },
-    {
-      id: 1234,
-      status: 'done',
-      task: 'Hello world done',
-    },
-    {
-      id: 1235,
-      status: 'done',
-      task: 'Hello world done 2',
-    },
-    {
-      id: 1236,
-      status: 'pending',
-      task: 'Hello world pending',
-    },
-    {
-      id: 1237,
-      status: 'pending',
-      task: 'Hello world pending 2',
-    },
-  ],
+  tasks: [],
 });
 
 //  Helper
@@ -145,6 +120,10 @@ function homePageReducer(state = initialState, action) {
 
     case FILTER_TASKS: {
       return state.set('currentFilter', action.filter);
+    }
+    case CLEAR_COMPLETED: {
+      const tasks = state.get('tasks');
+      return state.set('tasks', tasks.filter(t => t.get('status') !== 'done'));
     }
     case DEFAULT_ACTION:
       return state;

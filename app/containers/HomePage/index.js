@@ -26,6 +26,7 @@ import {
   taskSubmit,
   taskRemove,
   filterTasks,
+  clearCompleted,
 } from './actions';
 //  Components
 import H1Link from '../../components/H1Link';
@@ -48,6 +49,7 @@ export class HomePage extends React.PureComponent {
       onTaskSubmit,
       onTaskRemove,
       onFilterTasks,
+      onClearCompleted,
     } = this.props;
 
     return (
@@ -112,7 +114,11 @@ export class HomePage extends React.PureComponent {
             </div>
 
             <div className="clear-completed">
-              <button type="button">{`Clear completed (${itemsCompleted})`}</button>
+              {tasks.filter(t => t.status === 'done').length === 0 || (
+                <ButtonAction handleClick={onClearCompleted}>
+                  {`Clear completed (${itemsCompleted})`}
+                </ButtonAction>
+              )}
             </div>
           </FiltersWrapper>
         </TaskList>
@@ -130,6 +136,7 @@ HomePage.propTypes = {
   onTaskSubmit: PropTypes.func,
   onTaskRemove: PropTypes.func,
   onFilterTasks: PropTypes.func,
+  onClearCompleted: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -145,6 +152,7 @@ function mapDispatchToProps(dispatch) {
     onTaskSubmit: evt => dispatch(taskSubmit(evt)),
     onTaskRemove: tid => dispatch(taskRemove(tid)),
     onFilterTasks: filter => dispatch(filterTasks(filter)),
+    onClearCompleted: () => dispatch(clearCompleted()),
   };
 }
 
