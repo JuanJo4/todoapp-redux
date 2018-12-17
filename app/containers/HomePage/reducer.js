@@ -19,8 +19,8 @@ import {
 
 export const initialState = fromJS({
   newTask: '',
-  itemsLeft: 3,
-  itemsCompleted: 2,
+  itemsLeft: 0,
+  itemsCompleted: 0,
   currentFilter: 'all',
   tasks: [],
 });
