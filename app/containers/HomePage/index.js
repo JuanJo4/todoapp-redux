@@ -38,6 +38,36 @@ import { TaskList, FiltersWrapper, BottomBorder } from './styledComponents';
 library.add(faAngleDown, faTimes, faCircle, faCheckCircle);
 
 /* eslint-disable react/prefer-stateless-function */
+const MicroComponent = props => {
+  const { onTaskIconClick, onTaskChange, onTaskRemove, task } = props;
+  const handleTaskIconClick = () => {
+    onTaskIconClick(task.id);
+  };
+  const handleTaskChange = event => {
+    onTaskChange(event, task.id);
+  };
+  const handleTaskRemove = () => {
+    onTaskRemove(task.id);
+  };
+  return (
+    <TaskInput
+      key={task.id}
+      status={task.status}
+      task={task.task}
+      onTaskIconClick={handleTaskIconClick}
+      onTaskChange={handleTaskChange}
+      onTaskRemove={handleTaskRemove}
+    />
+  );
+};
+
+MicroComponent.propTypes = {
+  onTaskIconClick: PropTypes.func.isRequired,
+  onTaskChange: PropTypes.func.isRequired,
+  onTaskRemove: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired,
+};
+
 export class HomePage extends React.PureComponent {
   render() {
     const {
@@ -80,13 +110,11 @@ export class HomePage extends React.PureComponent {
                 (currentFilter === 'completed' && t.status === 'done'),
             )
             .map(t => (
-              <TaskInput
-                key={t.id}
-                status={t.status}
-                task={t.task}
-                onTaskIconClick={() => onTaskIconClick(t.id)}
-                onTaskChange={evt => onTaskChange(evt, t.id)}
-                onTaskRemove={() => onTaskRemove(t.id)}
+              <MicroComponent
+                onTaskIconClick={onTaskIconClick}
+                onTaskChange={onTaskChange}
+                onTaskRemove={onTaskRemove}
+                task={t}
               />
             ))}
 
@@ -130,6 +158,7 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
+  // Todos los proptypes que vienen del mapDispatchToProps deben ser required.
   homePage: PropTypes.object.isRequired,
   onTaskIconClick: PropTypes.func,
   onTaskIconClickDefault: PropTypes.func,
