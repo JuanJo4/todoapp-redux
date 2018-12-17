@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Esta funcion puede ser un arrow function
 function ButtonAction(props) {
   const { children, handleClick, className } = props;
   return (

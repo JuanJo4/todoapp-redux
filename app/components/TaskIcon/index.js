@@ -15,14 +15,15 @@ const Button = styled.button`
   outline: none;
 `;
 
-function TaskIcon(props) {
+// function TaskIcon(props) {
+const TaskIcon = props => {
   const { icon, onTaskIconClick, className } = props;
   return (
     <Button type="button" onClick={onTaskIconClick} className={className}>
       <FontAwesomeIcon icon={icon} />
     </Button>
   );
-}
+};
 
 TaskIcon.propTypes = {
   icon: PropTypes.array.isRequired,
