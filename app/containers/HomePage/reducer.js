@@ -13,12 +13,14 @@ import {
   NEW_TASK_CHANGE,
   TASK_SUBMIT,
   TASK_REMOVE,
+  FILTER_TASKS,
 } from './constants';
 
 export const initialState = fromJS({
   newTask: '',
   itemsLeft: 3,
   itemsCompleted: 2,
+  currentFilter: 'all',
   tasks: [
     {
       id: 123,
@@ -139,6 +141,10 @@ function homePageReducer(state = initialState, action) {
         .set('itemsLeft', itemsLeft)
         .set('itemsCompleted', itemsCompleted)
         .set('tasks', tasksUpdated);
+    }
+
+    case FILTER_TASKS: {
+      return state.set('currentFilter', action.filter);
     }
     case DEFAULT_ACTION:
       return state;

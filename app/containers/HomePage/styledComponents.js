@@ -15,6 +15,7 @@ export const FiltersWrapper = styled.div`
 
   button {
     padding: 5px;
+    margin: 0 2px;
     cursor: pointer;
     outline: none;
 

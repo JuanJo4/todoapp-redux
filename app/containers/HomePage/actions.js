@@ -12,6 +12,7 @@ import {
   NEW_TASK_CHANGE,
   TASK_SUBMIT,
   TASK_REMOVE,
+  FILTER_TASKS,
 } from './constants';
 
 export function defaultAction() {
@@ -59,5 +60,12 @@ export function taskRemove(tid) {
   return {
     type: TASK_REMOVE,
     tid,
+  };
+}
+
+export function filterTasks(filter) {
+  return {
+    type: FILTER_TASKS,
+    filter,
   };
 }

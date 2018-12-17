@@ -25,10 +25,12 @@ import {
   newTaskChange,
   taskSubmit,
   taskRemove,
+  filterTasks,
 } from './actions';
 //  Components
 import H1Link from '../../components/H1Link';
 import TaskInput from '../../components/TaskInput';
+import ButtonAction from '../../components/ButtonAction';
 import { TaskList, FiltersWrapper } from './styledComponents';
 
 //  Adding icon to librery (Fontawesome)
@@ -38,13 +40,14 @@ library.add(faAngleDown, faTimes, faCircle, faCheckCircle);
 export class HomePage extends React.PureComponent {
   render() {
     const {
-      homePage: { newTask, tasks, itemsLeft, itemsCompleted },
+      homePage: { newTask, tasks, itemsLeft, itemsCompleted, currentFilter },
       onTaskIconClick,
       onTaskIconClickDefault,
       onTaskChange,
       onNewTaskChange,
       onTaskSubmit,
       onTaskRemove,
+      onFilterTasks,
     } = this.props;
 
     return (
@@ -67,23 +70,45 @@ export class HomePage extends React.PureComponent {
             />
           </form>
 
-          {tasks.map(t => (
-            <TaskInput
-              key={t.id}
-              status={t.status}
-              task={t.task}
-              onTaskIconClick={() => onTaskIconClick(t.id)}
-              onTaskChange={evt => onTaskChange(evt, t.id)}
-              onTaskRemove={() => onTaskRemove(t.id)}
-            />
-          ))}
+          {tasks
+            .filter(
+              t =>
+                currentFilter === 'all' ||
+                (currentFilter === 'active' && t.status === 'pending') ||
+                (currentFilter === 'completed' && t.status === 'done'),
+            )
+            .map(t => (
+              <TaskInput
+                key={t.id}
+                status={t.status}
+                task={t.task}
+                onTaskIconClick={() => onTaskIconClick(t.id)}
+                onTaskChange={evt => onTaskChange(evt, t.id)}
+                onTaskRemove={() => onTaskRemove(t.id)}
+              />
+            ))}
 
           <FiltersWrapper>
             <div className="items-left">{`${itemsLeft} items left`}</div>
             <div className="filters">
-              <button type="button">All</button>
-              <button type="button">Active</button>
-              <button type="button">Completed</button>
+              <ButtonAction
+                handleClick={() => onFilterTasks('all')}
+                className={currentFilter === 'all' ? 'active' : ''}
+              >
+                All
+              </ButtonAction>
+              <ButtonAction
+                handleClick={() => onFilterTasks('active')}
+                className={currentFilter === 'active' ? 'active' : ''}
+              >
+                Active
+              </ButtonAction>
+              <ButtonAction
+                handleClick={() => onFilterTasks('completed')}
+                className={currentFilter === 'completed' ? 'active' : ''}
+              >
+                Completed
+              </ButtonAction>
             </div>
 
             <div className="clear-completed">
@@ -104,6 +129,7 @@ HomePage.propTypes = {
   onNewTaskChange: PropTypes.func,
   onTaskSubmit: PropTypes.func,
   onTaskRemove: PropTypes.func,
+  onFilterTasks: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -118,6 +144,7 @@ function mapDispatchToProps(dispatch) {
     onNewTaskChange: evt => dispatch(newTaskChange(evt.target.value)),
     onTaskSubmit: evt => dispatch(taskSubmit(evt)),
     onTaskRemove: tid => dispatch(taskRemove(tid)),
+    onFilterTasks: filter => dispatch(filterTasks(filter)),
   };
 }
 
