@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import TaskIcon from '../TaskIcon';
 
+// Es preferible crear un archivo styledComponent que agregarlos al archivo del componente.
 const TaskWrapper = styled.div`
   display: flex;
 `;
@@ -17,6 +18,7 @@ const Input = styled.input`
   flex-grow: 1;
 `;
 
+// Esta funcion puede ser un arrow function
 function TaskInput(props) {
   const {
     status,
